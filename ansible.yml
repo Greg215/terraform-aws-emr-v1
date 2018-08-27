@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Install R Programming Language
+      yum:
+        name: R
+        state: latest
+
+    - name: Download RStudio Server Open Source Edition
+      get_url:
+        url: https://download2.rstudio.org/rstudio-server-rhel-1.0.153-x86_64.rpm
+        dest: /tmp/rstudio-server.rpm
+
+    - name: Install RStudio Server Open Source Edition
+      yum:
+        name: /tmp/rstudio-server.rpm
+        state: present
